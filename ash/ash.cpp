@@ -37,11 +37,15 @@ int main() {
 
     if(Ash_Helper::builtInCmd(command) == 1) {
       continue;
-    } else {
-      std::cout << command << ": is not a command" << "\n";
+    } else if (Ash_Helper::shellCommand(command) == 1) {
+      continue;
+    } else if (Ash_Helper::shellCommand(command) == 2) {
+      std::cout << "fork failed" << "\n";
+      continue;
+    } else if (Ash_Helper::shellCommand(command) == 3) {
+      std::cout << "waitpid failed" << "\n";
       continue;
     }
-
   }
 }
 

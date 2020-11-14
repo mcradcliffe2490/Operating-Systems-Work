@@ -9,4 +9,6 @@ test5.txt
 testMain.cpp
 .idea/
 cmake-build-debug/
+ash/a.exe
+ash/a.exe.stackdump
 
