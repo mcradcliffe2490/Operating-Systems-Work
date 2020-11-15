@@ -32,6 +32,12 @@ Recreates the solution to the Readers-Writers problem. Readers and Writers are c
 No thread can enter when a writer thread is doing work, but multiple readers threads can do work at the same time.
 Turnstile semaphore is used to prevent writer starvation.
 
+## 9.cpp
+Recreates a particular solution to the Dinning Philosopher's problem,
+Where Philosopher's are replaced with gamers who are playing games
+in a living room.
+
 ## Ash
 The ash project is an ongoing project to implement a basic shell and learn how they fundamentally work. 
 Currently, all built in is functional and soon regular commands will be too.
+
