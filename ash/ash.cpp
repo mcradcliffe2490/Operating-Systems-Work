@@ -9,6 +9,7 @@
  * Program greets you and waits for user to input command
  * upon inputting "exit" the program ends
  * and the team members names are displayed
+ * Handles erros and is a fully functioning shell
  */
 typedef std::string String_std;
 
@@ -34,6 +35,11 @@ int main() {
     }
 
     String_std command = Ash_Helper::removeLeadWhitespace(cmd);
+
+    if (command.find("./ash") != String_std::npos) {
+      Ash_Helper::batchProgram(command);
+      continue;
+    }
 
     if(Ash_Helper::builtInCmd(command) == 1) {
       continue;

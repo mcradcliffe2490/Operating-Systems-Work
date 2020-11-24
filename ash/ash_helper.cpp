@@ -8,7 +8,6 @@
 #include <cstring>
 #include <algorithm>
 #include <fcntl.h>
-#include <sstream>
 
 #ifdef WINDOWS
 #include <direct.h>
@@ -140,7 +139,7 @@ public:
         cmdAndArgs[i] = cmdAndArgsVect[i].c_str();
       }
       //end of arguments, array needs to be null terminating unless redirect operator exist
-      if (!redirectOut) cmdAndArgs[cmdAndArgsVect.size() + 1] = NULL;
+      if (!redirectOut) cmdAndArgs[cmdAndArgsVect.size()] = NULL;
     }
 
     //section to check if redirect was done correctly
@@ -187,6 +186,40 @@ public:
     waitpid(pid, &status, 0);
 
     return 1;
+  }
+
+  static void batchProgram(String_std lineCommand) {
+    std::vector<String_std> cmdAndArgsVect = splitCmd(lineCommand);
+
+    if(cmdAndArgsVect.size() != 2) {
+      std::cout << "That is not the correct amount of arguments for this command" << "\n";
+      return;
+    }
+
+    String_std fileName = cmdAndArgsVect[1];
+    std::ifstream file(fileName);
+    String_std line;
+
+    while(std::getline(file,line)) {
+
+      if (line.empty()) {
+        continue;
+      }
+
+      String_std command = removeLeadWhitespace(line);
+
+      if(builtInCmd(command) == 1) {
+        continue;
+      } else if (shellCommand(command) == 1) {
+        continue;
+      } else if (shellCommand(command) == 2) {
+        std::cout << "fork failed" << "\n";
+        continue;
+      } else if (shellCommand(command) == 3) {
+        std::cout << "waitpid failed" << "\n";
+        continue;
+      }
+    }
   }
 
 private:
